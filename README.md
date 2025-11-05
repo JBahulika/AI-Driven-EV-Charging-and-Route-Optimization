@@ -1,4 +1,4 @@
-# 🔋 AI-Driven EV Charging and Route Optimization System
+# 🔋 AI-Driven EV Charging and Route Optimization System - WEEK 1
 
 ## 🚀 Overview
 With the rapid adoption of **Electric Vehicles (EVs)**, challenges such as **charging congestion**, **range anxiety**, and **grid imbalance** are becoming increasingly significant.  
