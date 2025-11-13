@@ -1,13 +1,13 @@
-# 🔋 AI-Driven EV Charging and Route Optimization System
+# 🔋 AI-Driven EV Charging & Route Optimization Dashboard
 
 ## 🚀 Project Overview
 With the rapid adoption of **Electric Vehicles (EVs)**, challenges such as **charging congestion**, **range anxiety**, and **grid imbalance** are becoming increasingly significant.
 
-This project is an **AI-powered system** designed to optimize EV infrastructure. It predicts energy consumption for specific trips, visualizes real-time demand pressure across India, and uses Reinforcement Learning to dynamically price charging sessions to balance grid load.
+This project is an end-to-end AI ecosystem designed to optimize EV infrastructure. It combines predictive machine learning, reinforcement learning, and LLM-driven chat into a single, interactive **Streamlit Dashboard**. The system provides intelligent tools for both EV drivers and station operators.
 
 ---
 
-## 📅 Milestones
+## 📅 Project Milestones
 
 ### ✅ WEEK 1: Conceptualization & Data Acquisition
 **Goal:** Define problem statements and acquire raw data.
@@ -17,39 +17,67 @@ This project is an **AI-powered system** designed to optimize EV infrastructure.
 
 ### ✅ WEEK 2: AI Model Development & Data Cleaning
 **Goal:** Clean data and train ML/RL models.
-* **Data Cleaning Pipeline:** Developed robust cleaning scripts to handle missing coordinates, standardizing 30+ state name variations, and removing impossible outliers (e.g., 900 km/h speed logs) from trip data.
-* **Major Improvisations & Pivots:**
-    * *Demand Forecasting:* Pivoted from simple time-series forecasting (due to data limitations) to a more impactful **Geospatial Demand Pressure** metric, merging state-level EV density with station locations.
-    * *Route Optimization:* Focused on building the "AI Brain" first—a **Random Forest** model that predicts the *energy cost* (`kWh/km`) of a route based on speed, temperature, and time.
+* **Data Cleaning Pipeline:** Developed robust scripts to handle missing coordinates, standardize 30+ state name variations, and remove outlier data.
+* **Major Improvisations:**
+    * **Pivoted Demand Forecasting:** Shifted from time-series to a **Geospatial Demand Pressure** metric (`evs_per_station`) due to data limitations.
+    * **Simulated Environment:** Built a custom Python simulation for dynamic pricing since no historical training data existed.
 * **AI Models Built:**
-    1.  **Energy Predictor (Random Forest):** Predicts trip efficiency with an MAE of ~0.04 kWh/km.
-    2.  **Dynamic Pricing Agent (Q-Learning):** A Reinforcement Learning agent trained on **50,000 simulated days** to learn optimal pricing strategies (e.g., maximizing revenue during peak demand without alienating customers at night).
-* **Final Deliverable:** Three distinct, trained AI components: a geospatial demand map (`.html`), a predictive energy model (`.joblib`), and a dynamic pricing agent (`.npy`).
+    1.  **Energy Predictor (Random Forest):** Predicts trip efficiency (`kWh/km`) with high accuracy.
+    2.  **Dynamic Pricing Agent (Q-Learning):** A Reinforcement Learning agent trained on **50,000 simulated days** to learn optimal pricing strategies.
+
+### ✅ WEEK 3: Full-Stack Integration & Dashboard
+**Goal:** Build a user-friendly interface to demonstrate the AI.
+* **Streamlit Dashboard:** Built a responsive, multi-page web application (`app.py`) to serve as the front end.
+* **Context-Aware Chatbot:** Integrated **OpenAI's GPT-4o** with custom tool use. The chatbot has "Shared Memory"—it knows the results of your energy calculations and pricing simulations from other pages to give smart advice.
+* **Visual Upgrades:** Implemented **Plotly** gauges and charts for better data storytelling and a "Theme-Safe" UI that works in both Light and Dark modes.
 
 ---
 
-## 🧠 Core AI Components (Week 2 Deliverables)
+## 💻 Live Dashboard Features
+The core of this project is the `app.py` Streamlit application, which integrates all the AI models into a multi-page dashboard.
 
-| Component | Type | Model/Tech | Status |
-| :--- | :--- | :--- | :--- |
-| **Demand Heatmap** | Visualization | Folium + Geospatial Data Merging | ✅ Complete |
-| **Energy Predictor** | Machine Learning | Random Forest Regressor (`sklearn`) | ✅ Trained & Saved |
-| **Dynamic Pricing** | Reinforcement Learning | Q-Learning Agent (Custom Simulation) | ✅ Trained & Saved |
+### 1. 🤖 AI Chatbot Assistant
+A context-aware AI assistant that acts as a natural language interface for the entire project.
+* **Context-Aware Memory:** The chatbot reads calculations from the other pages. You can run a prediction on the "Energy Predictor" page, then go to the chatbot and ask, **"How can I improve that efficiency?"**
+* **Tool-Using AI:** Powered by the OpenAI API, the chatbot can intelligently call the project's other AI models (Energy & Pricing) to answer complex questions directly in the chat.
 
----
+### 2. 🔮 Energy Predictor (For Drivers)
+This page helps drivers solve "range anxiety" by predicting energy consumption for a trip.
+* **Interactive Gauge:** A speedometer-style gauge shows the predicted efficiency (`kWh/km`) in real-time.
+* **Stat Cards:** Translates efficiency into a simple **Estimated Range (km)** and **Trip Cost (₹ per 100km)**.
+* **Live AI Analysis:** A dynamic text box explains *why* the efficiency is good or bad, identifying factors like high speed (wind resistance), cold weather (battery chemistry), or regenerative braking.
 
-## 💻 Project Outputs
+### 3. 💰 AI Dynamic Pricing (For Operators)
+This page demonstrates the AI agent for managing station congestion.
+* **Scenario Simulation:** Allows an operator to select the time of day ("Evening") and station traffic ("High").
+* **AI Strategy Analysis:** A Plotly bar chart visually displays the AI's "Success Score" for each pricing option (Low, Medium, High).
+* **Clear Recommendation:** The AI highlights the **Best Strategy** (e.g., "Recommended: High Price") to maximize revenue and balance grid load, based on its training.
 
-This project produced three core assets, which are saved in the repository:
-
-1.  **`ev_demand_heatmap.html`**: An interactive Folium map visualizing 1,500+ charging stations. The markers are color-coded (Green/Orange/Red) based on the "EVs per Station" demand pressure in that state.
-2.  **`energy_model.joblib`**: A trained `scikit-learn` model that predicts a trip's energy efficiency (kWh/km) based on inputs like speed, battery temperature, and time of day.
-3.  **`pricing_model_q_table.npy`**: A trained Q-Table (a NumPy file) that acts as the "brain" for a dynamic pricing agent. It can recommend the optimal price (Low, Medium, High) to maximize revenue based on the time of day and station occupancy.
+### 4. 📍 Demand & Station Map
+A geospatial visualization of India's charging infrastructure.
+* **Heatmap Layer:** Shows where charging stations are most concentrated.
+* **Demand Pressure:** Each of the 1,500+ station markers is color-coded (Red/Green) based on the "EVs per Station" in that state, instantly identifying high-pressure, underserved areas.
 
 ---
 
 ## 🛠️ Tech Stack
-* **Python**: Core programming language.
-* **Pandas & NumPy**: Advanced data manipulation and simulation.
-* **Scikit-Learn**: Training the Random Forest energy model.
-* **Folium**: Geospatial data visualization.
+* **Frontend & App:** Streamlit
+* **Data Science:** Pandas, NumPy
+* **Machine Learning:** Scikit-Learn (Random Forest)
+* **Reinforcement Learning:** Custom Q-Learning Simulation (Python + NumPy)
+* **Visualization:** Plotly (Charts & Gauges), Folium (Maps)
+* **AI Chatbot:** OpenAI (GPT-4o)
+
+---
+
+## ⚙️ How to Run
+1.  Clone this repository to your local machine.
+2.  Install all required libraries from the `requirements.txt` file:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Run the Streamlit application from your terminal:
+    ```bash
+    streamlit run app.py
+    ```
+4.  To use the chatbot, enter your OpenAI API Key in the sidebar.
