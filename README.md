@@ -1,6 +1,11 @@
+
 # 🔋 AI-Driven EV Charging & Route Optimization Dashboard
 
 ## 🚀 Project Overview
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jbahulika-ai-driven-ev-charging-and-route-optimizati-app-vgzb9h.streamlit.app/)
+
+**🌟 [Click Here view EV dashboard](https://jbahulika-ai-driven-ev-charging-and-route-optimizati-app-vgzb9h.streamlit.app/)**
+
 With the rapid adoption of **Electric Vehicles (EVs)**, challenges such as **charging congestion**, **range anxiety**, and **grid imbalance** are becoming increasingly significant.
 
 This project is an end-to-end AI ecosystem designed to optimize EV infrastructure. It combines predictive machine learning, reinforcement learning, and LLM-driven chat into a single, interactive **Streamlit Dashboard**. The system provides intelligent tools for both EV drivers and station operators.
@@ -81,3 +86,4 @@ A geospatial visualization of India's charging infrastructure.
     streamlit run app.py
     ```
 4.  To use the chatbot, enter your OpenAI API Key in the sidebar.
+````
